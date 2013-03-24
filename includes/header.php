@@ -56,25 +56,25 @@
 		<div id="menu">
 			<table id="menu-table">
 				<tr>
-					<td class="menu-link active" id="home">
+					<td class="menu-link active depth" id="home">
 						Home
 					</td>
 					<td>
 						<img src="images/menu-border.png" class="menu-border"/>
 					</td>																					
-					<td class="menu-link" id="hiw">
+					<td class="menu-link depth" id="hiw">
 						How It Works
 					</td>										
 					<td>
 						<img src="images/menu-border.png" class="menu-border"/>
 					</td>									
-					<td class="menu-link" id="team">
+					<td class="menu-link depth" id="team">
 						Our Team
 					</td>				
 					<td>
 						<img src="images/menu-border.png" class="menu-border"/>
 					</td>									
-					<td class="menu-link" id="contact">
+					<td class="menu-link depth" id="contact">
 						Contact Us
 					</td>					
 				</tr>
