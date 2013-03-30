@@ -82,7 +82,7 @@ function checkEmailAvailable($email){
 
 function getUserLevel($email){	
 	$query = "SELECT * FROM gfz_users WHERE email_address='$email'";		
-	$result = mysql_query($query);
+\	$result = mysql_query($query);
 	if(!$result){
     return false;
 	}

@@ -3,35 +3,56 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="js/jquery.simplemodal-1.4.4.js"></script>
 <link rel="stylesheet" type="text/css" href="css/gfz.css">
+<link rel="stylesheet" type="text/css" href="css/basic.css">
 <title>Gluten Free Zone</title>
 <script type="text/javascript">
 	$(document).ready(function(){
-		console.log("hi");
-		$("#home").click(function(){		
-			showPage("home-content", "home");
+		$("#signout").click(function(){						
+			$.ajax({
+				url: "php/gfz_logout.php",
+				type: "post",				
+				success: function(){
+					window.location.href = "index.php?loggedin=false";
+				}				
+			});
+		});		
+		$("#login-form").ajaxForm(function(data){
+			switch(data){
+				case '0':
+					window.location.href = "index.php?loggedin=true"
+					break;
+				case '1':		
+					$("#login-fail").modal();
+					break;
+				case '2':
+					//verification
+					window.location.href = "verification.php";
+			}
 		});
-		$("#hiw").click(function(){			
-			showPage("how-it-works", "hiw");
+		$(".menu-link").click(function(){
+			$(".menu-link").removeClass("active");
+			$(this).addClass("active");						
+			var id = $(this).attr('id');			
+			showPage(id);			
 		});
-		$("#team").click(function(){
-			showPage("our-team", "team");
-		});
-		$("#contact").click(function(){
-			showPage("contact-us", "contact");
-		});						
 	});
 	
-	function showPage(id, link){
-		console.log(id);
-		$(".menu-link").removeClass("active");
-		$("#" + link).addClass("active");
-		$(".page").hide();
-		$("#" + id).fadeIn("slow");	
+	function showPage(id){		
+		$("#main-content").hide();
+		$.get(id + '.php', function(data) {			
+			$('#main-content').html(data);			
+			$("#main-content").fadeIn('fast');
+		});
 	}
 </script>
 </head>
 <body>
+<div id="login-fail" style="display:none">
+	<p style="color:#fff; font-weight: bold; font-size: 22px;">Invalid Email Address or Password!</p>
+</div>
 <div id="header">
 	<div id="header-content">
     <div id="gfz-header">
@@ -39,18 +60,35 @@
         <a href="index.php"><img src="images/logo-web.png" id="gfz-logo"/></a>				
       </div>
       <div id="header-right">
-				<form method="POST" action="php/gfz_login.php">
+
+<?php	
+	if(isset($_COOKIE['gfz_session'])){
+?>			
+<div id="user-info">
+	<table id="info-table">
+		<tr>
+			<td id="user">Welcome back, <?php echo $_COOKIE['gfz_session']; ?></td>
+		</tr>
+		<tr>
+			<td id="signout">Sign Out</td>
+		</tr>
+	</table>
+</div>
+<?php }else{?>
+				<form method="POST" id="login-form" action="php/gfz_login.php">
 					<label>Email: </label>
 					<br/>
-					<input type="text" name="email"/>			
+					<input type="text" name="email" tabindex="1"/>			
 					<br/>
 					<label>Password: </label>				
 					<br/>
-					<input type="password" name="password"/>
+					<input type="password" name="password" tabindex="2"/>
 					<br/>
 					<br/>					
-					<input id="login-submit" type="submit" value="Sign In"/>
+					<input id="login-submit" type="submit" value="Sign In" tabindex="3"/>
 				</form>
+					
+<?php }	?>
       </div>
     </div>		
 		<div id="menu">
@@ -62,13 +100,13 @@
 					<td>
 						<img src="images/menu-border.png" class="menu-border"/>
 					</td>																					
-					<td class="menu-link depth" id="hiw">
+					<td class="menu-link depth" id="how_it_works">
 						How It Works
 					</td>										
 					<td>
 						<img src="images/menu-border.png" class="menu-border"/>
 					</td>									
-					<td class="menu-link depth" id="team">
+					<td class="menu-link depth" id="our_team">
 						Our Team
 					</td>				
 					<td>
