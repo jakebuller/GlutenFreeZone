@@ -1,5 +1,5 @@
 <div id="how-it-works">
-	<h1>Meet the team!</h1>
+	<h1>How It Works!</h1>
 	<p>Gluten Free Zone is an easy to use smartphone application. Simply follow the steps below!</p>
 	<hr/>
 	<table id="hiw-table">

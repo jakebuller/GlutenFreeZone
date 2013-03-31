@@ -40,10 +40,13 @@
 			</td>
 			<td class="info-col">
 				<h2>Jake Buller</h2>
-				<p>Gluten Free Zone is a smart phone application that allows users to easily scan a products barcode, 
-				and find out if it is safe to eat. Gluten Free Zone is targeted at users with celiac disease as well as others who wish to avoid gluten. 
-				
-				Jake Buller
+				<p>
+				Hi, I'm Jake Buller and I'm a fourth year Computer Science student at Laurier. I love buidling new and exciting applications
+        and working with latest techonologies and I'm looking forward to finish my degree this year to be a full time developer. In 
+        my free time I'm a musician, I've been playing the piano and guitar most of my life. This project is an endevaour that has 
+        taught me a lot more than I could have guessed. Buidling a business is a lot more than having a great idea through the 
+        Laurier Launchpad program we have turned Gluten Free Zone into a business. I hope you find the app useful and thanks for 
+        checking out our website!
 				</p>
 			</td>		
 			

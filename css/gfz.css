@@ -25,7 +25,7 @@ body{
 	padding: 10px;
 }
 #menu{
-	height: 50px;
+	height: 55px;
 	width: 100%;
 	margin: auto;
 background: rgb(4,182,29); /* Old browsers */
@@ -157,7 +157,7 @@ input[type=checkbox]{
 	color: #000;
 }
 
-input[type=text], input[type=password]{
+input[type=text], input[type=password], textarea{
 	border-radius: 5px;	
 	width: 250px;
 	height: 30px;
@@ -358,4 +358,25 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#04b61d', end
 
 .hiw-image{
 	width: 300px;
+}
+
+#contact-form{
+	width: 600px;
+	padding: 20px;
+	margin: auto;
+}
+
+#contact-form input[type=text]{
+	width: 400px;
+	height: 30px;
+	padding: 20px;
+	margin: 10px 0 10px 0;
+}
+
+#contact-form textarea{
+	width: 600px;
+	height: 400px;
+	padding: 20px;
+	margin: 10px 0 10px 0;
+	border-radius: 5px;
 }
