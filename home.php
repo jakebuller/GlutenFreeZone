@@ -16,7 +16,8 @@
 			switch(data){
 				case '0':
 					//this shouldn't happened
-					console.log('signup went well, now verify the account.');
+					$("#signup-fail").html("<h2>Success!</h2><p>Your account has been created, you will recieve an email with a verification code to confirm your account. </p><a href='verification.php'><input type='button' value='Ok'/></a>");
+					$("#signup-fail").modal();
 					//window.location.href = "verification.php";
 					break;
 				case '1':		
@@ -88,15 +89,23 @@
 							<form method="POST" id="signup-table" action="php/gfz_create_account.php">
 								<table>
 									<tr>
-										<td><label>Email Address: </label></td>
+										<td><label>First Name: </label></td>
+										<td><input type="text" id="first_name" name="first_name" tabindex="4"/></td>
+									</tr>
+									<tr>
+										<td><label>Last Name: </label></td>
+										<td><input type="text" id="last_name" name="last_name" tabindex="4"/></td>
+									</tr>                                  
+									<tr>
+										<td><label>Email Address (required): </label></td>
 										<td><input type="text" id="email" name="email" tabindex="4"/></td>
 									</tr>
 									<tr>
-										<td><label>Desired Password: </label></td>
+										<td><label>Desired Password (required): </label></td>
 										<td><input type="password" id="password" name="password" tabindex="5"/></td>
 									</tr>
 									<tr>
-										<td><label>Re-Type Password: </label></td>
+										<td><label>Re-Type Password (required): </label></td>
 										<td><input type="password" id="password-retype" name="password-retype" tabindex="6"/></td>
 									</tr>
 									<tr>

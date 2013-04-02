@@ -42,8 +42,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#04b61d', end
 }
 
 #menu-table td.menu-link{
-	padding-left: 20px;
-	padding-right: 20px;
 	width: 200px;
 	text-align:center;
 	cursor: pointer;

@@ -10,9 +10,10 @@ if(isset($_POST['email'])){
 		$password = $_POST['password'];		
 		if(validateLogin($email, $password)){					
 			if(verifyUser($email)){				
-				echo "0";
-				// store session data in a cookie
+				// store session data in a cookie			
 				setCookie("gfz_session", $email, time()+3600, '/');
+				setLastLogin($email);				
+				echo "0";				
 			}else{
 				setCookie("gfz_verify", $email, time()+360, '/');
 				echo "2";

@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("../includes/db.php");
 
 function validateLogin($email, $password){
@@ -98,6 +97,21 @@ function generateRandomString($length) {
         $randomString .= $characters[rand(0, strlen($characters) - 1)];
     }
     return $randomString;
+}
+
+function getSession(){
+	if(isset($_COOKIE['gfz_session'])){
+		$email = $_COOKIE['gfz_session'];
+		return $email;
+	}else{
+		return false;
+	}
+}
+
+function setLastLogin($email){
+	$timestamp = date('Y-m-d H.i.s');
+	$query = "UPDATE gfz_users SET last_login='$timestamp' WHERE email_address='$email'";
+	$result = mysql_query($query);
 }
 
 ?>

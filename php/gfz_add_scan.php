@@ -1,14 +1,14 @@
 <?php
 include("../includes/db.php");
 
-$user_id = "";
-$result = "";
+$user_id = "27";
+$result = "0";
 $display = "true";
 $ip = $_SERVER['REMOTE_ADDR'];
-$longitude = "";
-$latitude = "";
-$upc = "";
-
+$longitude = "0";
+$latitude = "0";
+$upc = "164893126354";
+/*
 $error = false;
 if(isset($_POST['user_id'])){
 	$user_id = $_POST['user_id'];
@@ -36,7 +36,7 @@ if(isset($_POST['upc'])){
 }else{
 	$error = true;
 }
-
+*/
 if(!$error){
 	$query = "INSERT INTO gfz_scans (user_id, result, display, ip, longitude, latitude, upc) VALUES ('$user_id', '$result', '$display', '$ip', '$longitude', '$latitude', '$upc')";
 	$result = mysql_query($query);
@@ -45,6 +45,9 @@ if(!$error){
 	}else{
 		echo "0";
 	}
+	$query = "UPDATE gfz_users SET num_scans=num_scans+1 WHERE id='$user_id'";
+	$result = mysql_query($query);	
+	
 }else{
 	echo "2";
 }

@@ -9,7 +9,7 @@
 		}
 	});
 </script>
-<form id="contact-form" action="php/contact_form.php" method="POST">
+<form id="contact-form" action="php/gfz_contact_form.php" method="POST">
 	<h2>Questions or Comments? We'd love to hear from you!</h2>
 	<input type="text" id="name" name="name" placeholder="Your Name (required)"/>
   <br />

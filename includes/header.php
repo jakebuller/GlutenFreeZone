@@ -1,3 +1,6 @@
+<?php
+include("functions.php");
+?>
 <!DOCTYPE>
 <html>
 <head>
@@ -62,7 +65,7 @@
       <div id="header-right">
 
 <?php	
-	if(isset($_COOKIE['gfz_session'])){
+	if(getSession()){
 ?>			
 <div id="user-info">
 	<table id="info-table">
@@ -114,7 +117,29 @@
 					</td>									
 					<td class="menu-link depth" id="contact">
 						Contact Us
-					</td>					
+					</td>       
+					<?php	
+            if(getSession()){
+							$email = getSession();
+							$user_level = getUserLevel($email);
+							if($user_level == 2){								
+          ?>			             
+					<td>
+						<img src="images/menu-border.png" class="menu-border"/>
+					</td>									          
+					<td class="menu-link depth" id="products">
+						Products
+					</td>          					
+					<td>
+						<img src="images/menu-border.png" class="menu-border"/>
+					</td>									          
+					<td class="menu-link depth" id="analytics">
+						Analytics
+					</td>       
+					<?php	
+							}
+						}
+          ?>			                                          
 				</tr>
 			</table>
 		</div>
