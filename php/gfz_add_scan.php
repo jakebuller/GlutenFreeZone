@@ -8,7 +8,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 $longitude = "0";
 $latitude = "0";
 $upc = "164893126354";
-/*
+
 $error = false;
 if(isset($_POST['user_id'])){
 	$user_id = $_POST['user_id'];
@@ -36,7 +36,6 @@ if(isset($_POST['upc'])){
 }else{
 	$error = true;
 }
-*/
 if(!$error){
 	$query = "INSERT INTO gfz_scans (user_id, result, display, ip, longitude, latitude, upc) VALUES ('$user_id', '$result', '$display', '$ip', '$longitude', '$latitude', '$upc')";
 	$result = mysql_query($query);

@@ -90,6 +90,51 @@ function getUserLevel($email){
 	return $id;
 }
 
+function getUserId($email){	
+	$query = "SELECT id FROM gfz_users WHERE email_address='$email'";		
+	$result = mysql_query($query);
+	if(!$result){
+    return false;
+	}	
+	$rows = mysql_fetch_array($result);
+	$id = $rows['id'];
+	return $id;
+}
+
+function getUserRestrictions($id){	
+	$query = "SELECT restrictions FROM gfz_users WHERE id='$id'";		
+	$result = mysql_query($query);
+	if(!$result){
+    return false;
+	}	
+	$rows = mysql_fetch_array($result);
+	$res = $rows['restrictions'];
+	return $res;
+}
+
+function getProductIngredients($upc){	
+	$query = "SELECT ingredients FROM gfz_products WHERE upc='$upc'";
+	$result = mysql_query($query);
+	if(!$result){
+    return false;
+	}	
+	$rows = mysql_fetch_array($result);
+	$res = $rows['ingredients'];
+	return $res;
+}
+
+//builds a json string of full product information
+function getProductName($upc){
+	$query = "SELECT product_name FROM gfz_products WHERE upc='$upc'";
+	$result = mysql_query($query);
+	if(!$result){
+    return false;
+	}	
+	$rows = mysql_fetch_array($result);
+	$res = $rows['product_name'];
+	return $res;
+}
+
 function generateRandomString($length) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $randomString = '';
