@@ -67,8 +67,13 @@ function refreshTable() {
 	});
 }
 
+function deleteClick(){
+	$("#signup-fail").html("<h2>Confirm!</h2><p>Are you sure you want to delete the selected items?</p><input type='button' onclick='$.modal.close()' value='No' /><input style='margin-left: 25px;' type='button' onclick=\"deleteProducts()\"value='Yes'/>");
+	$("#signup-fail").modal();
+}
 
 function deleteProducts() {
+	$.modal.close();	
 	var numUpcs = 0;
 	var upcCodes = "";
 	$(".clicked").each( function() {
@@ -130,7 +135,7 @@ function saveProductChanges() {
       </tbody>
     </table>
   <div id="button-wrapper">
-    <input id="delete-product" type="button" value="Delete Product(s)" onclick="deleteProducts()" />
+    <input id="delete-product" type="button" value="Delete Product(s)" onclick="deleteClick()" />
     <input id="add-product" type="button" value="Add Procuct" onclick="addProduct()" />
   </div>       
   </div>

@@ -483,6 +483,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#04b61d', end
 
 #analytics-table td{
 	padding: 5px;
+	height: 30px;
+	border-bottom: 1px solid #ccc;	
+	border-collapse: collapse;
 }
 
 #refresh-wrapper{

@@ -36,14 +36,16 @@ if(isset($_POST['upc'])){
 
 if(!$error){
 	$user_id = getUserId($email);
-	
+	$safe = '1';
 	// get the scan results
 	$user_restrictions = getUserRestrictions($user_id);
 	//user has no restrictions so the product is safe
 	if($user_restrictions == false){ return true; }
-	$product_ingredients = strtolower(getProductIngredients($upc));	
+	$product_ingredients = strtolower(getProductIngredients($upc));
+	$product_name = getProductName($upc);
 	if($product_ingredients == "" || $product_ingredients == null){
-		echo "2";
+		$safe = '2';
+		echo "2:" . $upc;
 	}else{
 		$safe = '1';
 		
@@ -55,7 +57,7 @@ if(!$error){
 			}
 		}
 		
-		echo $safe;
+		echo $safe.":" . $product_name;
 	}
 	//add the scan to the database
 	$query = "INSERT INTO gfz_scans (user_id, result, display, ip, longitude, latitude, upc) VALUES ('$user_id', '$safe', '$display', '$ip', '$longitude', '$latitude', '$upc')";
