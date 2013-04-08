@@ -1,33 +1,5 @@
 <?php
 include("php/gfz_manage_products.php");
-
-function formatProductsInTable() {
-	$products = json_decode(getProductDetails(), true);
-	for($i = 0; $i < count($products); $i++) {
-		echo printRow($products[$i]);
-	}
-}
-
-function printRow($product) {
-	$upc = $product["upcCode"];
-	$ret = "<tr class='clickable' id='" . $upc . "' onclick='productClick(this)'>";
-	$ret .= "<td id='code_" . $upc . "'>" . $product["upcCode"] . "</td>";
-	$ret .= "<td><span id='name_" . $upc . "'>" . $product["productName"] . "</span>";
-	$ret .= hideIngredients($product["ingredients"], $upc);
-	$ret .= "</td>";
-	$ret .= "</tr>";
-	
-	return $ret;
-}
-
-function hideIngredients($ingredients, $upc) {
-	$ret = "<div id='ingredients_" . $upc . "' style='display: none'>";
-	$ret .= $ingredients;
-	$ret .= "</div>";
-	
-	return $ret;
-}
-
 ?>
 
 <style type="text/css">
@@ -41,6 +13,18 @@ function hideIngredients($ingredients, $upc) {
 </style>
 
 <script type="text/javascript">
+$(document).ready(function(){
+	$("#products-table tr").click(function(e){
+		if(e.ctrlKey){
+			//multi select
+			multiProductSelect($(this));
+		}else{
+			//single select
+			productSelect($(this));
+		}	
+	});
+});
+
 function populateProductForm(upc) {
 	$("#nameInput").val( $("#name_" + upc).text() );
 	$("#upcInput").val( $("#code_" + upc).text() );
@@ -48,8 +32,9 @@ function populateProductForm(upc) {
 	$("#ingredientsInput").val( str );
 }
 
-function productClick(elem) {
-	var upc = elem.id;
+function multiProductSelect(elem){
+	console.log("hello");
+	var upc = elem.attr("id");
 	var elemId = "#" + upc;
 	
 	if( $(elemId).hasClass("clicked") ) {
@@ -59,6 +44,31 @@ function productClick(elem) {
 		$(elemId).addClass("clicked");
 	}
 }
+
+function productSelect(elem){
+	$("#products-table tr").removeClass("clicked");
+	populateProductForm(elem.attr("id"));
+	$(elem).addClass("clicked");
+}
+
+function addProduct() {
+	$("#nameInput").val( "" );
+	$("#upcInput").val( "");
+	$("#ingredientsInput").val( "" );	
+	$("#products-table tr").removeClass("clicked");	
+}
+
+function refreshTable() {
+	$.ajax({
+		url: "http://hopper.wlu.ca/~bull6280/gfz/php/gfz_manage_products.php",
+		data: {"action":"getTable"},
+		type: "post",
+		success: function(result) {
+			$("#tableBody").html(result);
+		}
+	});
+}
+
 
 function deleteProducts() {
 	var numUpcs = 0;
@@ -72,22 +82,28 @@ function deleteProducts() {
 		upcCodes = upcCodes.substring(0, upcCodes.lastIndexOf(","));
 	}
 	
-	console.log(upcCodes);
-	
 	$.ajax({
 		url: "http://hopper.wlu.ca/~bull6280/gfz/php/gfz_manage_products.php",
 		data: {"action":"delete", "upcCodes":upcCodes},
 		type: "post",
 		success: function(result) {
-			console.log(result);
+			refreshTable();
 		}
 	});
 }
 
 function saveProductChanges() {
-	console.log($("#nameInput").val());
-	console.log($("#upcInput").val());
-	console.log($("#ingredientsInput").val());
+	var name = $("#nameInput").val();
+	var upc = $("#upcInput").val();
+	var ingredients = $("#ingredientsInput").val();
+	$.ajax({
+		url: "http://hopper.wlu.ca/~bull6280/gfz/php/gfz_manage_products.php",
+		data: {"action":"update", "upcCode":upc, "product":name, "ingredients":ingredients},
+		type: "post",
+		success: function(result) {
+			refreshTable();
+		}
+	});
 }
 </script>
 
@@ -95,30 +111,47 @@ function saveProductChanges() {
 	<div class="title">
 		<h1>Manage Products</h1>
 	</div>
-	<div style="float:left">
-		<h2>Products</h2>
-		<div style="border: 1px solid #d4d4d4">
-			<table>
-				<thead>
-					<tr>
-						<th>UPC</th>
-						<th>Name</th>
-				</thead>
-				<tbody>
-					<?php
-					formatProductsInTable();
-					?>
-				</tbody>
-			</table>
-		</div>
-		<input type="button" value="Delete Product(s)" onclick="deleteProducts()" />
+  <div class="table-title">
+	<h2>Products</h2>    
 	</div>
-	<div style="float:left">
-		<span>
-			Product Name:<input id="nameInput" type="text" /><br/>
-			UPC Code:<input id="upcInput" type="text" /><br/>
-			Ingredients:<textarea id="ingredientsInput" type="text" /><br/>
-		</span>
-		<input type="button" value="Save Changes" onclick="saveProductChanges()" />
+  <div class="table-title">
+		<h2>Product Info</h2>    
+	</div>  
+  <br />
+  <div id="table-wrapper">
+    <table id="products-table">
+      <thead>
+        <tr>
+          <th>UPC</th>
+          <th>Name</th>
+      </thead>
+      <tbody id="tableBody">
+        <?php
+        getProductDetailsAsTable();
+        ?>
+      </tbody>
+    </table>
+  <div id="button-wrapper">
+    <input id="delete-product" type="button" value="Delete Product(s)" onclick="deleteProducts()" />
+    <input id="add-product" type="button" value="Add Procuct" onclick="addProduct()" />
+  </div>       
+  </div>
+       
+  
+	<div id="product-wrapper">
+		<table id="table-info">
+    	<tr>
+				<td>Product Name:</td><td><input id="nameInput" type="text" /></td>
+      </tr>
+      <tr>
+				<td>UPC Code:</td><td><input id="upcInput" type="text" /></td>
+      </tr>
+      <tr>
+				<td>Ingredients:</td><td><textarea id="ingredientsInput" type="text" /></td>
+			</tr>        
+     	<tr>
+				<td>&nbsp;</td><td><input type="button" id="save" value="Save Changes" onclick="saveProductChanges()" /></td>
+    	</tr>
+    </table>
 	</div>
-</div>
+</div>  

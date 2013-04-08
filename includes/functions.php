@@ -58,7 +58,7 @@ function createUser($first_name, $last_name, $email, $password, $reasons, $devic
 	$pass_hash = sha1($password);
 	$code = generateRandomString(20);
 	$restrictions = '{"restrictions": { "name": "gluten" }}';
-	$query = "INSERT INTO gfz_users (first_name, last_name, email_address, password, reasons, device, verified, verification_code, restrictions) VALUES ('$first_name', '$last_name', '$email', '$pass_hash', '$reasons', '$device', 0, '$code', '$restrictions')";	
+	$query = "INSERT INTO gfz_users (first_name, last_name, email_address, password, reasons, device, verified, verification_code, restrictions) VALUES ('$first_name', '$last_name', '$email', '$pass_hash', '$reasons', '$device', 1, '$code', '$restrictions')";	
 	$result = mysql_query($query);
 	if(!$result){
     return '1';

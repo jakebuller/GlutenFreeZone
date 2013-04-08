@@ -1,3 +1,17 @@
+<script>
+	var images = ["scan_safe.png", "scan_not_safe.png"];
+	var cur = 0;
+	$(document).ready(function(){
+		window.setInterval(pictureChange, 3000);		
+	});
+	
+	function pictureChange(){
+		cur = (cur + 1)%images.length;
+		$("#scan").hide();
+		$("#scan").attr("src", "images/" + images[cur]);
+		$("#scan").fadeIn("slow");
+	}
+</script>
 <div id="how-it-works">
 	<h1>How It Works!</h1>
 	<p>Gluten Free Zone is an easy to use smartphone application. Simply follow the steps below!</p>
@@ -22,7 +36,7 @@
 				<img src="images/scan_product.png" class="hiw-image" />
 			</td>
 			<td>
-				<img src="images/scan_safe.png" class="hiw-image" />
+				<img id="scan" src="images/scan_safe.png" class="hiw-image" />
 			</td>			
 		</tr>			
 	</table>	

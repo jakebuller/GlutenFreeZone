@@ -94,4 +94,50 @@ function getNumActiveUsers(){
 	return $active_users;
 }
 
+function getAnalytics(){
+	$table = '<table id="analytics-table">';
+	$table .= '<tr>';
+	$table .= '<th>Metric</th>';
+	$table .= '<th>Value</th>';
+	$table .= "</tr>";	
+	
+	$table .= '<tr>';
+	$table .= '<td>total scans</td>';			
+	$table .= '<td>'.getTotalScans().'</td>';			
+	$table .= "</tr>";	
+	
+	$table .= "<tr>";			
+	$table .= '<td>total users</td>';		
+	$table .= '<td>'.getTotalUsers().'</td>';		
+	$table .= "</tr>";		
+		
+	$table .= "<tr>";			
+	$table .= '<td>avg #scans/user</td>';	
+	$table .= '<td>'.getAvgScansPerUser().'</td>';	
+	$table .= "</tr>";
+				
+	$table .= "<tr>";	
+	$table .= '<td>Number of unique UPC\'s scanned</td>';
+	$table .= '<td>'.getNumUniqueCodeScans().'</td>';
+	$table .= "</tr>";			
+	
+	$table .= "<tr>";		
+	$table .= "<td># of logins in the last week: </td>";
+	$table .= '<td>'.getNumLoginsLastWeek().'</td>';	
+	$table .= "</tr>";			
+	
+	$table .= "<tr>";
+	$table .= '<td># of scans in the last week</td>';
+	$table .= '<td>' .getNumScansLastWeek().'</td>';	
+	$table .= "</tr>";			
+	
+	$table .= "<tr>";	
+	$table .= '<td># of active users</td>';	
+	$table .= '<td>' .getNumActiveUsers().'</td>';		
+	$table .= "</tr>";			
+	
+	$table .= "</table>";
+	return $table;	
+}
+
 ?>
