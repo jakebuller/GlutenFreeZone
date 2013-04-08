@@ -2,7 +2,7 @@
 include("../includes/db.php");
 
 function getProductDetails() {
-	$query = "SELECT upc AS upcCode, product_name AS productName, ingredients FROM gfz_products";
+	$query = "SELECT upc AS upcCode, product_name AS productName, ingredients FROM gfz_products ORDER BY upc ASC";
 	$result = mysql_query($query);
 	
 	if(!$result) {
