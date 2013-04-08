@@ -13,8 +13,7 @@ include("php/gfz_manage_products.php");
 </style>
 
 <script type="text/javascript">
-$(document).ready(function(){
-	$("#products-table tr").click(function(e){
+	$(document).on('click', '#products-table tr', function(e) {
 		if(e.ctrlKey){
 			//multi select
 			multiProductSelect($(this));
@@ -23,7 +22,6 @@ $(document).ready(function(){
 			productSelect($(this));
 		}	
 	});
-});
 
 function populateProductForm(upc) {
 	$("#nameInput").val( $("#name_" + upc).text() );
